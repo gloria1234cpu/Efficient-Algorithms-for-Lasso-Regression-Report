@@ -7,9 +7,9 @@ This repository contains the code and experimental results for the course projec
 
 The project studies the Lasso regression problem
 
-$$
+```math
 \min_w \frac{1}{2n}\|Xw-y\|_2^2 + \lambda\|w\|_1
-$$
+```
 and compares four optimization algorithms:
 
 - Subgradient Descent
