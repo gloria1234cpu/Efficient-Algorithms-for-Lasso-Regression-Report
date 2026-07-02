@@ -321,11 +321,11 @@ We vary λ / λ<sub>max</sub> and measure the L2 distance between the estimated 
 <table>
   <tr>
     <td align="center" width="50%">
-      <img src="./figures/regularization_distance_to_true_w.png" alt="Regularization distance to true coefficients" width="300"><br>
+      <img src="./figures/regularization_distance_to_true_w.png" alt="Regularization distance to true coefficients" width="380"><br>
       <sub><b>Figure 7.</b> Distance to true coefficients across λ values.</sub>
     </td>
     <td align="center" width="50%">
-      <img src="./figures/lambda_heatmap.png" alt="Regularization heatmap" width="300"><br>
+      <img src="./figures/lambda_heatmap.png" alt="Regularization heatmap" width="380"><br>
       <sub><b>Figure 8.</b> Heatmap of recovery error across λ values.</sub>
     </td>
   </tr>
