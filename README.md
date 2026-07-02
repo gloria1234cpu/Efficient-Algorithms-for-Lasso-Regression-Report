@@ -316,16 +316,16 @@ The final-objective comparison shows that all solvers are robust to initializati
 
 #### 3.4.2 Robustness to Regularization Strength
 
-We vary λ / λ<sub>max</sub> and measure the L2 distance between the estimated coefficient vector and the true sparse vector, `||w_hat - w*||_2`. This metric is available only for synthetic data because the true coefficient vector is known.
+We vary λ / λ<sub>max</sub> and measure the L2 distance between the estimated coefficient vector and the true sparse vector, ‖ŵ − w*‖<sub>2</sub>. This metric is available only for synthetic data because the true coefficient vector is known.
 
 <table>
   <tr>
     <td align="center" width="50%">
-      <img src="./figures/regularization_distance_to_true_w.png" alt="Regularization distance to true coefficients" width="380"><br>
+      <img src="./figures/regularization_distance_to_true_w.png" alt="Regularization distance to true coefficients" width="300"><br>
       <sub><b>Figure 7.</b> Distance to true coefficients across λ values.</sub>
     </td>
     <td align="center" width="50%">
-      <img src="./figures/lambda_heatmap.png" alt="Regularization heatmap" width="380"><br>
+      <img src="./figures/lambda_heatmap.png" alt="Regularization heatmap" width="300"><br>
       <sub><b>Figure 8.</b> Heatmap of recovery error across λ values.</sub>
     </td>
   </tr>
