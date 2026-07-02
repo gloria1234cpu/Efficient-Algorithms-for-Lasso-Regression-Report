@@ -166,7 +166,7 @@ The Lasso path gives the reverse perspective. When λ is large, regularization i
 
 Sparse recovery is evaluated on the synthetic dataset because the true coefficient vector is known. The goal is not only to minimize the objective value, but also to recover the original sparse structure of the ground-truth vector.
 
-The first metric is the L2 recovery error, `||w_hat - w*||_2`, where `w_hat` is the estimated coefficient vector and `w*` is the true coefficient vector. A smaller value means that the estimated coefficients are closer to the ground truth.
+The first metric is the L2 recovery error, ‖ŵ − w*‖<sub>2</sub>, where ŵ is the estimated coefficient vector and w* is the true coefficient vector. A smaller value means that the estimated coefficients are closer to the ground truth.
 
 <table>
   <tr>
@@ -237,10 +237,6 @@ Subgradient Descent has very low precision because it selects many false-positiv
 
 <table>
   <tr>
-    <td width="50%" align="center">
-      <img src="./figures/sklearn_comparison.png" alt="Coordinate Descent vs sklearn Lasso" width="340"><br>
-      <sub><b>Figure 4.</b> Our Coordinate Descent versus sklearn Lasso.</sub>
-    </td>
     <td width="50%" valign="top">
       <table>
         <tr>
