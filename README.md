@@ -89,9 +89,41 @@ You can also run the script inside Jupyter Notebook or JupyterLab with:
 
 ### 3.1 Convergence
 
-![Convergence comparison](./figures/convergence.png)
-
 This experiment compares the convergence behavior of Subgradient Descent, ISTA, FISTA, and Coordinate Descent on the synthetic Lasso problem. The plot shows the objective value over iterations or coordinate-descent sweeps.
+
+<table>
+  <tr>
+    <td width="55%" align="center">
+      <img src="./figures/convergence.png" alt="Convergence comparison" width="500">
+    </td>
+    <td width="45%" valign="top">
+
+<table>
+  <tr>
+    <th>Solver</th>
+    <th>Final objective</th>
+  </tr>
+  <tr>
+    <td>Subgradient Descent</td>
+    <td align="right">1.393</td>
+  </tr>
+  <tr>
+    <td>ISTA</td>
+    <td align="right">1.387</td>
+  </tr>
+  <tr>
+    <td>FISTA</td>
+    <td align="right">1.298</td>
+  </tr>
+  <tr>
+    <td>Coordinate Descent</td>
+    <td align="right">1.298</td>
+  </tr>
+</table>
+
+  </td>
+  </tr>
+</table>
 
 Subgradient Descent and ISTA both decrease the objective value slowly, and their curves almost overlap under the chosen step size. This indicates that, although both methods are able to reduce the objective, they require many iterations to approach a good solution. The main difference is that ISTA uses the soft-thresholding operator, which can produce exact zeros, while Subgradient Descent only updates coefficients through the subgradient of the L1 penalty.
 
@@ -99,12 +131,6 @@ FISTA converges much faster than ISTA because it adds Nesterov acceleration to t
 
 Coordinate Descent performs best in terms of convergence speed. Since it updates one coordinate at a time using a closed-form soft-thresholding step, it reaches the lowest objective value within only a few epochs. This makes it especially efficient for Lasso regression.
 
-| Solver | Final objective |
-|---|---:|
-| Subgradient Descent | 1.393 |
-| ISTA | 1.387 |
-| FISTA | 1.298 |
-| Coordinate Descent | 1.298 |
 
 Overall, the convergence experiment shows that methods based on soft-thresholding are better suited for Lasso optimization than plain Subgradient Descent. FISTA and Coordinate Descent reach substantially better objective values under the same computational budget.
 
@@ -112,15 +138,19 @@ Overall, the convergence experiment shows that methods based on soft-thresholdin
 
 ### 3.2 Sparsity and Lasso Path
 
-![Sparsity vs Lambda](./figures/sparsity_lambda.png)
 
 The sparsity experiment studies how the number of nonzero coefficients changes as the regularization parameter `lambda` increases. A larger `lambda` puts more weight on the L1 penalty, so the solution is expected to become sparser.
+
+<p align="center">
+  <img src="./figures/sparsity_lambda.png" alt="Sparsity vs Lambda" width="380">
+  <img src="./figures/lasso_path.png" alt="Lasso path" width="380">
+</p>
 
 The plot confirms this behavior. For ISTA, FISTA, and Coordinate Descent, the number of selected coefficients decreases clearly as `lambda` becomes larger. This is because all three methods use soft-thresholding, which can shrink small coefficients exactly to zero.
 
 Subgradient Descent behaves differently. Even when `lambda` increases, it keeps many coefficients nonzero. This happens because the subgradient update does not contain an explicit thresholding step. As a result, coefficients may become small, but they are rarely set exactly to zero. Therefore, Subgradient Descent produces denser solutions and is less effective for feature selection.
 
-![Lasso path](./figures/lasso_path.png)
+
 
 The Lasso path experiment shows the reverse perspective: it tracks the number of nonzero coefficients as `lambda` decreases. When `lambda` is large, the regularization is strong and only a few coefficients remain active. As `lambda` becomes smaller, the regularization weakens and more coefficients enter the model.
 
@@ -293,103 +323,6 @@ The heatmap also shows that the most influential features are selected consisten
 
 Overall, the Diabetes validation supports the conclusions from the synthetic experiments: Coordinate Descent performs best overall, FISTA is also highly effective, and Subgradient Descent is useful as a baseline but less suitable for sparse Lasso optimization.
 
-## Main Results
-
-### Convergence
-
-![Convergence comparison](figures/convergence.png)
-
-FISTA and Coordinate Descent converge faster than Subgradient Descent and ISTA. Coordinate Descent reaches a low objective value within only a few sweeps.
-
-| Solver | Final objective |
-|---|---:|
-| Subgradient Descent | 1.393 |
-| ISTA | 1.387 |
-| FISTA | 1.298 |
-| Coordinate Descent | 1.298 |
-
-### Sparsity and Lasso Path
-
-![Sparsity vs Lambda](figures/sparsity_lambda.png)
-
-As the regularization strength \(\lambda\) increases, the number of nonzero coefficients decreases. Subgradient Descent remains dense because it rarely sets coefficients exactly to zero, while ISTA, FISTA, and Coordinate Descent produce sparse solutions through soft-thresholding.
-
-![Lasso path](figures/lasso_path.png)
-
-The Lasso path confirms the expected behavior: as \(\lambda\) decreases, regularization becomes weaker and more coefficients enter the model.
-
-### Sparse Recovery
-
-![Recovery error](figures/recovery_error.png)
-
-| Method | \( \|\hat{w} - w^*\|_2 \) |
-|---|---:|
-| Subgradient Descent | 1.486 |
-| ISTA | 1.483 |
-| FISTA | 0.748 |
-| Coordinate Descent | 0.749 |
-
-FISTA and Coordinate Descent recover the true sparse vector more accurately than Subgradient Descent and ISTA.
-
-### Support Recovery
-
-| Method | Precision | Recall | F1 |
-|---|---:|---:|---:|
-| Subgradient Descent | 0.051 | 1.000 | 0.096 |
-| ISTA | 0.185 | 1.000 | 0.313 |
-| FISTA | 0.345 | 1.000 | 0.513 |
-| Coordinate Descent | 0.357 | 1.000 | 0.526 |
-
-All methods recover the true nonzero coefficients, so recall is 1.000 for all solvers. However, Subgradient Descent selects many false positives, while FISTA and Coordinate Descent achieve much higher precision.
-
-### Comparison with sklearn Lasso
-
-![Coordinate Descent vs sklearn Lasso](figures/sklearn_comparison.png)
-
-Our Coordinate Descent implementation matches `sklearn.linear_model.Lasso` almost exactly on the synthetic experiment.
-
-| Method | Objective value | Nonzero coefficients | Recovery error |
-|---|---:|---:|---:|
-| Our Coordinate Descent | 1.2976 | 28 | 0.7485 |
-| sklearn Lasso | 1.2976 | 28 | 0.7485 |
-
-### Robustness to Initialization
-
-![Initialization final objective](figures/initialization_final_objective.png)
-
-After sufficient iterations, all solvers reach nearly the same final objective under zero, small random, and large random initialization. This indicates that the final optimization result is robust to initialization.
-
-The short-run experiment shows that initialization matters more when the number of iterations is limited:
-
-![Short-run initialization sensitivity](figures/short_run_initialization_sensitivity.png)
-
-### Robustness to Regularization Strength
-
-![Regularization heatmap](figures/lambda_heatmap.png)
-
-FISTA and Coordinate Descent are more robust across different regularization strengths. Their recovery errors decrease steadily as \(\lambda\) becomes smaller. Subgradient Descent is more sensitive to \(\lambda\) and performs best only at an intermediate regularization level.
-
-## Diabetes Dataset Results
-
-### Test MSE
-
-![Diabetes test MSE](figures/diabetes_test_mse_vs_regularization.png)
-
-The best validation results are obtained at the same regularization ratio for all solvers.
-
-| Solver | Best \(\lambda / \lambda_{\max}\) | Best test MSE | Sparsity at best \(\lambda\) | Selected features |
-|---|---:|---:|---:|---|
-| Subgradient Descent | 0.046416 | 2801.133037 | 10 | bmi, s5, bp, s3, sex, s1, s6, s2, s4, age |
-| ISTA | 0.046416 | 2801.078318 | 8 | bmi, s5, bp, s3, sex, s1, s6, s2 |
-| FISTA | 0.046416 | 2798.609930 | 7 | bmi, s5, bp, s3, sex, s1, s6 |
-| Coordinate Descent | 0.046416 | 2798.601225 | 7 | bmi, s5, bp, s3, sex, s1, s6 |
-| sklearn Lasso | 0.046416 | 2798.601223 | 7 | bmi, s5, bp, s3, sex, s1, s6 |
-
-### Feature Selection
-
-![Diabetes coefficient heatmap](figures/diabetes_coefficient_heatmap.png)
-
-FISTA, Coordinate Descent, and sklearn Lasso select the same seven features on the Diabetes dataset. ISTA selects one additional feature, while Subgradient Descent keeps all ten features.
 
 ## Reproducibility Notes
 
