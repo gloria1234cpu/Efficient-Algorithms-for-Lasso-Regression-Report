@@ -144,7 +144,7 @@ The main difficulty is the nonsmooth $\ell_1$ penalty. The absolute value functi
 
 The soft-thresholding operator is:
 
-$$S_\tau(z)=\operatorname{sign}(z)\max(|z|-\tau,0)$$
+$$S_\tau(z)=\mathrm{sign}(z)\cdot\mathrm{max}(|z|-\tau,0)$$
 
 This operator shrinks small coefficients to zero and is the key reason why ISTA, FISTA, and Coordinate Descent can produce sparse solutions.
 
@@ -313,19 +313,12 @@ Sparse recovery is evaluated on the synthetic dataset because the true coefficie
 
 The first metric is the L2 recovery error, $\lVert \hat{w} - w^* \rVert_2$, where $\hat{w}$ is the estimated coefficient vector and $w^*$ is the true coefficient vector. A smaller value means that the estimated coefficients are closer to the ground truth.
 
-| Method | L2 recovery error |
-|---|---:|
-| Subgradient Descent | 1.486 |
-| ISTA | 1.483 |
-| FISTA | 0.748 |
-| Coordinate Descent | 0.749 |
-
-| Method | Precision | Recall | F1 |
-|---|---:|---:|---:|
-| Subgradient Descent | 0.051 | 1.000 | 0.096 |
-| ISTA | 0.185 | 1.000 | 0.313 |
-| FISTA | 0.345 | 1.000 | 0.513 |
-| Coordinate Descent | 0.357 | 1.000 | 0.526 |
+| Method | L2 recovery error | Precision | Recall | F1 |
+|---|---:|---:|---:|---:|
+| Subgradient Descent | 1.486 | 0.051 | 1.000 | 0.096 |
+| ISTA | 1.483 | 0.185 | 1.000 | 0.313 |
+| FISTA | 0.748 | 0.345 | 1.000 | 0.513 |
+| Coordinate Descent | 0.749 | 0.357 | 1.000 | 0.526 |
 
 FISTA and Coordinate Descent achieve much smaller recovery errors than Subgradient Descent and ISTA. This shows that they estimate the true coefficient vector more accurately. All methods achieve recall equal to 1.000, meaning that all 10 true nonzero coefficients are recovered. However, precision differs strongly across methods.
 
