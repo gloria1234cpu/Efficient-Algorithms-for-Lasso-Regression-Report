@@ -412,8 +412,10 @@ Efficient Algorithms for Lasso Regression Report.pdf
 
 ## Authors
 
-- Yuehangsha Huang
 - Mengying Li
+- Yuehangsha Huang
+
+---
 
 ---
 
