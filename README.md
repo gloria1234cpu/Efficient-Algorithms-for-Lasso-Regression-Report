@@ -261,18 +261,41 @@ You can also run the script inside Jupyter Notebook or JupyterLab with:
 
 This experiment compares the convergence behavior of Subgradient Descent, ISTA, FISTA, and Coordinate Descent on the synthetic Lasso problem. The figure reports the objective value over iterations or coordinate-descent sweeps.
 
-<p align="center">
-  <img src="figures/convergence.png" width="650">
-  <br>
-  <em>Figure 1. Objective value versus iteration.</em>
-</p>
-
-| Solver | Final objective |
-|---|---:|
-| Subgradient Descent | 1.393 |
-| ISTA | 1.387 |
-| FISTA | 1.298 |
-| Coordinate Descent | 1.298 |
+<table>
+  <tr>
+    <td align="center" width="65%">
+      <img src="figures/convergence.png" width="520">
+      <br>
+      <em>Figure 1. Objective value versus iteration.</em>
+    </td>
+    <td align="center" width="35%">
+      <strong>Final Objective Values</strong>
+      <br><br>
+      <table>
+        <tr>
+          <th>Solver</th>
+          <th>Final objective</th>
+        </tr>
+        <tr>
+          <td>Subgradient Descent</td>
+          <td align="right">1.393</td>
+        </tr>
+        <tr>
+          <td>ISTA</td>
+          <td align="right">1.387</td>
+        </tr>
+        <tr>
+          <td>FISTA</td>
+          <td align="right">1.298</td>
+        </tr>
+        <tr>
+          <td>Coordinate Descent</td>
+          <td align="right">1.298</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
 
 Subgradient Descent and ISTA decrease the objective slowly, and their curves almost overlap under the chosen step size. Although both methods reduce the objective, they require many iterations to approach a good solution. ISTA has the advantage of using soft-thresholding, which can set coefficients exactly to zero, while Subgradient Descent only uses the subgradient of the $\ell_1$ penalty.
 
